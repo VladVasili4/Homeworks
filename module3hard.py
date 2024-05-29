@@ -7,12 +7,10 @@
 # Все числа (не важно, являются они ключами или значениям или ещё чем-то).
 # Все строки (не важно, являются они ключами или значениям или ещё чем-то)
 
-
-
 summa_all = 0
-def calculate_structure_sum(*values):         # return data_structure
+def calculate_structure_sum(*data_):
 
-    for element in values:
+    for element in data_:
         global summa_all
         if isinstance(element, int):
             summa_all += element
@@ -25,19 +23,10 @@ def calculate_structure_sum(*values):         # return data_structure
         elif isinstance(element, set):
             calculate_structure_sum(*element)
         elif isinstance(element, dict):
-            calculate_structure_sum(element.items)
-
-
-
-
-
-    print(summa_all)
-
-
-
-
-
-
+            for k in element:
+                key = (k, element[k])
+                calculate_structure_sum(*key)
+    return(summa_all)
 
 data_structure = [
     [1, 2, 3],
@@ -47,4 +36,4 @@ data_structure = [
     ((), [{(2, 'Urban', ('Urban2', 35))}])]
 
 result = calculate_structure_sum(data_structure)
-print(result)
+print('Result :', result)
